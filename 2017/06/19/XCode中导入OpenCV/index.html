@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://hemanz.github.io/2017/06/19/XCode中导入OpenCV/index.html">
 <meta property="og:site_name" content="Henan Zhang&#39;s Blog">
 <meta property="og:description" content="在 iOS 设备中安装 OpenCV ／ 在 XCode 中导入 OpenCV环境要求 CMake 2.8.8 或更高 Xcode 4.2 或更高  获取最新的 OpenCV 代码从该地址 clone OpenCV repository 在 Mac 也可以直接通过命令行来进行下载 12cd ~/&amp;lt;my_working _directory&amp;gt;git clone https://githu">
-<meta property="og:updated_time" content="2017-06-19T12:34:44.000Z">
+<meta property="og:updated_time" content="2017-06-20T14:26:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Henan Zhang&#39;s Blog">
 <meta name="twitter:description" content="在 iOS 设备中安装 OpenCV ／ 在 XCode 中导入 OpenCV环境要求 CMake 2.8.8 或更高 Xcode 4.2 或更高  获取最新的 OpenCV 代码从该地址 clone OpenCV repository 在 Mac 也可以直接通过命令行来进行下载 12cd ~/&amp;lt;my_working _directory&amp;gt;git clone https://githu">
@@ -89,11 +89,15 @@
 <p>2.编译 OpenCV framework</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/&lt;my_working_directory&gt;</div><div class="line">python opencv/platforms/ios/build_framework.py ios</div></pre></td></tr></table></figure>
 <p>如果没有问题，几十分钟后可以在 <code>~/&lt;my_working_directory&gt;/ios/opencv2.framework</code>中找到 framework 。然后导入到 XCode 中</p>
+<h3 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h3><p>在导入 <code>&lt;opencv2/opencv.hpp&gt;</code>的时候，会出现 Expected identifier 的错误，错误如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/opencv2.framework/Headers/stitching/detail/blenders.hpp:67:12: error: expected identifier</div><div class="line">    enum &#123; NO, FEATHER, MULTI_BAND &#125;;</div><div class="line">           ^</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/opencv2.framework/Headers/stitching/detail/exposure_compensate.hpp:65:12: error: expected identifier</div><div class="line">    enum &#123; NO, GAIN, GAIN_BLOCKS &#125;;</div></pre></td></tr></table></figure>
+<p>原因是 OpenCV内部有一些宏定义与苹果自身的冲突，解决办法就是,把<code>#include &lt;opencv2/opencv.hpp&gt;</code>放在引用的最顶端。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hemanz.github.io/2017/06/19/XCode中导入OpenCV/" data-id="cj444s8yo0000aoan86fjfxx5" class="article-share-link">Share</a>
+      <a data-url="http://hemanz.github.io/2017/06/19/XCode中导入OpenCV/" data-id="cj45nz8pw0000s2anl3qdrb2h" class="article-share-link">Share</a>
       
       
     </footer>
